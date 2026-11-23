@@ -5,21 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <title>
-            Leon Wenning - Software Engineer & Team Lead | AI for Autonomous
-            Drones
+            Leon Wenning - Software Engineer & Team Lead | AI and Cybersecurity for Unmanned Systems
         </title>
         <meta
             name="title"
-            content="Leon Wenning - Software Engineer & Team Lead | AI for Autonomous Drones"
+            content="Leon Wenning - Software Engineer & Team Lead | AI and Cybersecurity for Unmanned Systems"
         />
         <meta
             name="description"
-            content="Leon Wenning is a Software Engineer and Team Lead at Quantum-Systems. Passionate about tackling interesting, impactful problems from 0 → 1 in AI + hardware."
+            content="Leon Wenning is a Software Engineer and Team Lead at Quantum-Systems. Passionate about tackling interesting, impactful problems from 0 → 1 in AI + cybersecurity + hardware."
         />
         <meta name="author" content="Leon Wenning" />
         <meta
             name="keywords"
-            content="Leon Wenning, Software Engineer, Team Lead, AI, Autonomous Drones, Quantum-Systems, Munich, Physical AI, Machine Learning, Robotics"
+            content="Leon Wenning, Software Engineer, Team Lead, AI, Autonomous Drones, Unmanned Systems, Cybersecurity, Quantum-Systems, Munich, F3K, AIR glider"
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://leonwenning.com/" />
@@ -28,11 +27,11 @@
         <meta property="og:url" content="https://leonwenning.com/" />
         <meta
             property="og:title"
-            content="Leon Wenning - Software Engineer & Team Lead | AI for Autonomous Drones"
+            content="Leon Wenning - Software Engineer & Team Lead | AI and Cybersecurity for Unmanned Systems"
         />
         <meta
             property="og:description"
-            content="Passionate about tackling interesting, impactful problems from 0 → 1 in AI + hardware, autonomous drones, and physical AI."
+            content="Passionate about tackling interesting, impactful problems from 0 → 1 in AI + cybersecurity + hardware."
         />
         <meta property="og:site_name" content="Leon Wenning" />
         <meta property="og:locale" content="en_US" />
@@ -42,26 +41,32 @@
         <meta property="twitter:url" content="https://leonwenning.com/" />
         <meta
             property="twitter:title"
-            content="Leon Wenning - Software Engineer & Team Lead | AI for Autonomous Drones"
+            content="Leon Wenning - Software Engineer & Team Lead | AI and Cybersecurity for Unmanned Systems"
         />
         <meta
             property="twitter:description"
-            content="Passionate about tackling interesting, impactful problems from 0 → 1 in AI + hardware, autonomous drones, and physical AI."
+            content="Passionate about tackling interesting, impactful problems from 0 → 1 in AI + cybersecurity + hardware."
         />
         <meta property="twitter:site" content="@KernelMessage" />
         <meta property="twitter:creator" content="@KernelMessage" />
+
+        <!-- Favicon: SVG for browsers, PNG for iOS home screen -->
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=Inter:wght@300;400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Inter:wght@300;400;500&display=swap"
             rel="stylesheet"
         />
 
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
+            // Colors point at CSS variables so light/dark (and any palette
+            // experiment) is changed in one place: the :root block below.
             tailwind.config = {
                 theme: {
                     extend: {
@@ -70,12 +75,16 @@
                             inter: ["Inter", "sans-serif"],
                         },
                         colors: {
-                            "bg-primary": "#fafafa",
-                            "text-primary": "#0a0a0a",
-                            "text-secondary": "#6b6b6b",
+                            paper: "var(--paper)",
+                            ink: "var(--ink)",
+                            "ink-2": "var(--ink-2)",
+                            "ink-3": "var(--ink-3)",
+                            rule: "var(--rule)",
+                            accent: "var(--accent)",
                         },
                         letterSpacing: {
                             "tighter-custom": "-0.02em",
+                            label: "0.14em",
                         },
                     },
                 },
@@ -83,40 +92,75 @@
         </script>
 
         <style>
+            /*
+             * Monochrome, high-contrast palette: near-black on warm paper.
+             * Dark mode follows the OS setting, no toggle.
+             */
             :root {
-                --bg-color: #fafafa;
+                --paper: #f6f6f3;
+                --ink: #0e0e0e;
+                --ink-2: #464644;
+                --ink-3: #66665f;
+                --rule: rgba(14, 14, 14, 0.14);
+                --accent: var(--ink);
+                color-scheme: light;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --paper: #0c0d0f;
+                    --ink: #f2f2ef;
+                    --ink-2: #b6b6b0;
+                    --ink-3: #8c8c86;
+                    --rule: rgba(242, 242, 239, 0.16);
+                    color-scheme: dark;
+                }
             }
 
             body {
-                background-color: var(--bg-color);
+                background-color: var(--paper);
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
             }
 
-            /* Subtle underline effect */
+            ::selection {
+                background: var(--accent);
+                color: var(--paper);
+            }
+
+            /* No single-word last lines; balanced headings. */
+            p {
+                text-wrap: pretty;
+            }
+
+            h1,
+            h2 {
+                text-wrap: balance;
+            }
+
+            /* Native underline: wraps with the text and skips descenders. */
             .link-underline {
-                position: relative;
+                text-decoration-line: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 4px;
+                text-decoration-skip-ink: auto;
+                text-decoration-color: color-mix(
+                    in srgb,
+                    currentColor 30%,
+                    transparent
+                );
+                transition:
+                    color 0.2s,
+                    text-decoration-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
-            .link-underline::after {
-                content: "";
-                position: absolute;
-                bottom: -2px;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background-color: currentColor;
-                opacity: 0.3;
-                transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .link-underline:hover::after {
-                opacity: 1;
+            .link-underline:hover {
+                text-decoration-color: currentColor;
             }
 
             /* Accessible focus states */
             .link-underline:focus-visible {
-                outline: 2px solid currentColor;
+                outline: 2px solid var(--accent);
                 outline-offset: 4px;
                 border-radius: 2px;
             }
@@ -135,6 +179,11 @@
                     "name": "Quantum-Systems",
                     "url": "https://www.quantum-systems.com"
                 },
+                "alumniOf": {
+                    "@type": "Technical University of Munich",
+                    "name": "Technical University of Munich",
+                    "url": "https://www.tum.de"
+                },
                 "address": {
                     "@type": "PostalAddress",
                     "addressLocality": "Munich",
@@ -145,80 +194,144 @@
                     "https://x.com/KernelMessage"
                 ],
                 "email": "hello@leonwenning.com",
-                "description": "Software Engineer and Team Lead passionate about tackling interesting, impactful problems from 0 → 1 in AI + hardware, autonomous drones, and physical AI.",
+                "description": "Software Engineer and Team Lead passionate about tackling interesting, impactful problems from 0 → 1 in AI + cybersecurity + hardware.",
                 "knowsAbout": [
+                    "Cybersecurity for Unmanned Systems",
                     "Artificial Intelligence",
                     "Autonomous Drones",
-                    "Physical AI",
                     "Software Engineering",
-                    "Machine Learning",
                     "Robotics",
-                    "Hardware"
+                    "F3K Glider Design"
                 ]
             }
         </script>
     </head>
     <body
-        class="font-inter font-light text-text-primary antialiased overflow-hidden min-h-screen flex items-start sm:items-center justify-center px-6 sm:px-8 py-16 sm:py-0"
+        class="font-inter font-light text-ink antialiased min-h-screen flex items-start md:items-center justify-center px-6 sm:px-8 py-16 md:py-20"
     >
-        <div class="max-w-[680px] w-full">
-            <h1
-                class="font-archivo text-[2rem] sm:text-[2.25rem] md:text-[2.5rem] font-normal tracking-tighter-custom leading-[1.15] mb-6 sm:mb-8"
-            >
-                Leon Wenning
-            </h1>
+        <main class="max-w-[880px] w-full">
+            <!-- Intro -->
+            <header class="mb-12 sm:mb-16">
+                <h1
+                    class="font-archivo text-[2.25rem] sm:text-[2.75rem] md:text-[3.25rem] font-medium tracking-tighter-custom leading-[1.05]"
+                >
+                    Leon Wenning
+                </h1>
+                <p
+                    class="mt-3 text-xs uppercase tracking-label text-ink-3 font-normal"
+                >
+                    Munich, Germany
+                </p>
+            </header>
 
-            <!-- Bio -->
-            <p
-                class="text-base sm:text-lg md:text-[1.125rem] text-text-secondary leading-[1.7] max-w-[580px] mb-10 sm:mb-12"
+            <!--
+                Professional | Personal: two equal columns split by a hairline
+                on wide screens, stacked with a top rule on phones.
+            -->
+            <div
+                class="grid md:grid-cols-2 border-t border-rule md:divide-x md:divide-rule"
             >
-                Software Engineer and Team Lead at
-                <a
-                    href="https://www.quantum-systems.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline text-text-primary hover:text-text-secondary transition-colors duration-200"
-                >
-                    Quantum-Systems
-                </a>
-                building AI for autonomous drones. Based in Munich. Generalist
-                mindset, I thrive on interesting, impactful problems, taking
-                ideas from 0 → 1.
-            </p>
+                <section class="py-8 md:py-10 md:pr-10">
+                    <h2
+                        class="text-xs uppercase tracking-label text-ink-3 font-normal mb-4"
+                    >
+                        Professional
+                    </h2>
+                    <p class="text-base sm:text-[1.0625rem] text-ink-2 leading-[1.7]">
+                        Software Engineer and Team Lead at
+                        <a
+                            href="https://www.quantum-systems.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="whitespace-nowrap link-underline text-ink hover:text-ink-2 transition-colors duration-200"
+                            >Quantum-Systems</a
+                        >, building AI for autonomous drones. Previously in Cybersecurity.
+                        Background in Engineering Science and Computer Science at
+                        <a
+                            href="https://www.tum.de"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Technical University of Munich"
+                            class="whitespace-nowrap link-underline text-ink hover:text-ink-2 transition-colors duration-200"
+                            >TUM</a
+                        >. Generalist
+                        mindset: I thrive on interesting, impactful problems
+                        and on taking ideas from&nbsp;0&nbsp;→&nbsp;1.
+                    </p>
+                </section>
 
-            <!-- CTA -->
-            <p
-                class="text-base sm:text-lg text-text-secondary leading-[1.7] max-w-[580px] mb-10 sm:mb-12 italic"
-            >
-                Likeminded? Curious about physical AI, autonomous systems, or
-                just want to build something new together? Let's connect.
-            </p>
-
-            <!-- Links -->
-            <div class="flex flex-wrap gap-6 sm:gap-8 text-sm sm:text-base">
-                <a
-                    href="https://www.linkedin.com/in/leonwenning/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline text-text-primary hover:text-text-secondary transition-colors duration-200"
+                <section
+                    class="py-8 md:py-10 md:pl-10 border-t border-rule md:border-t-0"
                 >
-                    LinkedIn
-                </a>
-                <a
-                    href="https://x.com/KernelMessage"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline text-text-primary hover:text-text-secondary transition-colors duration-200"
-                >
-                    X
-                </a>
-                <a
-                    href="mailto:hello@leonwenning.com"
-                    class="link-underline text-text-primary hover:text-text-secondary transition-colors duration-200"
-                >
-                    Email
-                </a>
+                    <h2
+                        class="text-xs uppercase tracking-label text-ink-3 font-normal mb-4"
+                    >
+                        Personal
+                    </h2>
+                    <p class="text-base sm:text-[1.0625rem] text-ink-2 leading-[1.7]">
+                        Passionate learner. I fly F3K, hand-launched discus
+                        gliders, and am the aerodynamic designer behind the
+                        <span class="text-ink font-normal">AIR</span>, flown at
+                        international competitions such as the 2026 F3K
+                        European&nbsp;Championships.
+                    </p>
+                </section>
             </div>
-        </div>
+
+            <!-- Currently: one row, label left, focus right -->
+            <section
+                class="border-t border-b border-rule py-6 sm:py-7 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-10"
+                aria-labelledby="currently"
+            >
+                <h2
+                    id="currently"
+                    class="flex items-center gap-2.5 text-xs uppercase tracking-label text-ink-3 font-normal sm:w-36 shrink-0"
+                >
+                    <span
+                        class="inline-block w-1.5 h-1.5 bg-accent"
+                        aria-hidden="true"
+                    ></span>
+                    Currently
+                </h2>
+                <p class="font-archivo text-lg sm:text-xl text-ink tracking-tighter-custom">
+                    Independent research: cybersecurity for unmanned systems.
+                </p>
+            </section>
+
+            <!-- Connect -->
+            <section class="mt-12 sm:mt-16" aria-labelledby="connect">
+                <h2
+                    id="connect"
+                    class="text-xs uppercase tracking-label text-ink-3 font-normal mb-4"
+                >
+                    Connect
+                </h2>
+                <p class="text-base sm:text-[1.0625rem] text-ink-2 leading-[1.7] max-w-[580px] mb-6">
+                    Working on similar problems, looking for a project
+                    partner, or building a team? Let's&nbsp;talk.
+                </p>
+                <div class="flex flex-wrap gap-6 sm:gap-8 text-sm sm:text-base">
+                    <a
+                        href="https://www.linkedin.com/in/leonwenning/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="link-underline text-ink hover:text-ink-2 transition-colors duration-200"
+                        >LinkedIn</a
+                    >
+                    <a
+                        href="https://x.com/KernelMessage"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="link-underline text-ink hover:text-ink-2 transition-colors duration-200"
+                        >X</a
+                    >
+                    <a
+                        href="mailto:hello@leonwenning.com"
+                        class="link-underline text-ink hover:text-ink-2 transition-colors duration-200"
+                        >Email</a
+                    >
+                </div>
+            </section>
+        </main>
     </body>
 </html>

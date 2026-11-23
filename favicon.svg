@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    "LW" drawn as strokes, not <text>
+  -->
+  <style>
+    .bg { fill: #0e0e0e; }
+    .mark { stroke: #f6f6f3; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #f2f2ef; }
+      .mark { stroke: #0c0d0f; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" />
+  <path
+    class="mark"
+    d="M6.5 9V23H12M14 9L17 23L20 13L23 23L26 9"
+    fill="none"
+    stroke-width="2.5"
+    stroke-linejoin="miter"
+    stroke-miterlimit="2"
+  />
+</svg>
